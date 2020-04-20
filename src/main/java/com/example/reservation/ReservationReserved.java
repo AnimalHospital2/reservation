@@ -19,6 +19,14 @@ public class ReservationReserved {
         this.eventType = ReservationReserved.class.getSimpleName();
     }
 
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
     public Long getId() {
         return id;
     }

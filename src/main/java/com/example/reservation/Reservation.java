@@ -1,5 +1,7 @@
 package com.example.reservation;
 
+import com.example.reservation.external.MedicalRecord;
+import com.example.reservation.external.MedicalRecordService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cloud.stream.messaging.Processor;
@@ -26,6 +28,18 @@ public class Reservation {
 
     @PostPersist
     public void publishReservationReservedEvent() {
+//
+        MedicalRecord medicalRecord = new MedicalRecord();
+
+        medicalRecord.setDoctor("Brad pitt");
+        medicalRecord.setId(this.getId());
+        medicalRecord.setMedicalOpinion("별 이상 없습니다.");
+        medicalRecord.setTreatment("그냥 집에서 푹 쉬면 나을 것입니다.");
+
+        ReservationApplication.applicationContext.getBean(MedicalRecordService.class).diagnosis(medicalRecord);
+
+
+        // Reserved 이벤트 발생
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
@@ -43,6 +57,8 @@ public class Reservation {
                 .withPayload(json)
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
                 .build());
+
+
     }
 
     @PostUpdate

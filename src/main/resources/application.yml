@@ -11,10 +11,10 @@ spring:
         binder:
           brokers: localhost:9092
       bindings:
-        input:
-          group: reservation
-          destination: animal
-          contentType: application/json
+#        input:
+#          group: reservation
+#          destination: animal
+#          contentType: application/json
         output:
           destination: animal
           contentType: application/json
@@ -33,10 +33,10 @@ spring:
         binder:
           brokers: my-kafka.kafka.svc.cluster.local:9092
       bindings:
-        input:
-          group: reservation
-          destination: animal
-          contentType: application/json
+#        input:
+#          group: reservation
+#          destination: animal
+#          contentType: application/json
         output:
           destination: animal
           contentType: application/json
