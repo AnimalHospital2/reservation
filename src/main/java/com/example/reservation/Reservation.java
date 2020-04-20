@@ -14,7 +14,8 @@ import javax.persistence.*;
 @Table(name = "RESERVATION")
 public class Reservation {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String reservatorName;
@@ -30,7 +31,7 @@ public class Reservation {
         String json = null;
 
         try {
-            json = objectMapper.writeValueAsString(this);
+            json = objectMapper.writeValueAsString(new ReservationReserved(this));
         } catch (JsonProcessingException e) {
             throw new RuntimeException("JSON format exception", e);
         }
@@ -46,12 +47,42 @@ public class Reservation {
 
     @PostUpdate
     public void publishReservationChangedEvent() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = null;
 
+        try {
+            json = objectMapper.writeValueAsString(new ReservationChanged(this));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("JSON format exception", e);
+        }
+
+        Processor processor = ReservationApplication.applicationContext.getBean(Processor.class);
+        MessageChannel outputChannel = processor.output();
+
+        outputChannel.send(MessageBuilder
+                .withPayload(json)
+                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                .build());
     }
 
     @PostRemove
     public void publishReservationCanceledEvent() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = null;
 
+        try {
+            json = objectMapper.writeValueAsString(new ReservationCanceled(this));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("JSON format exception", e);
+        }
+
+        Processor processor = ReservationApplication.applicationContext.getBean(Processor.class);
+        MessageChannel outputChannel = processor.output();
+
+        outputChannel.send(MessageBuilder
+                .withPayload(json)
+                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                .build());
     }
 
     public Long getId() {

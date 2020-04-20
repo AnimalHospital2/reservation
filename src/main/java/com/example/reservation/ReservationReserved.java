@@ -9,6 +9,16 @@ public class ReservationReserved {
 
     private String phoneNumber;
 
+    private String eventType;
+
+    public ReservationReserved(Reservation reservation) {
+        this.id = reservation.getId();
+        this.reservatorName = reservation.getReservatorName();
+        this.reservationDate = reservation.getReservationDate();
+        this.phoneNumber = reservation.getPhoneNumber();
+        this.eventType = ReservationReserved.class.getSimpleName();
+    }
+
     public Long getId() {
         return id;
     }

@@ -3,11 +3,30 @@ package com.example.reservation;
 public class ReservationCanceled {
     private Long id;
 
+    private String eventType;
+
+
     private String reservatorName;
 
     private String reservationDate;
 
     private String phoneNumber;
+
+    public ReservationCanceled(Reservation reservation) {
+        this.id = reservation.getId();
+        this.reservatorName = reservation.getReservatorName();
+        this.reservationDate = reservation.getReservationDate();
+        this.phoneNumber = reservation.getPhoneNumber();
+        this.eventType = ReservationCanceled.class.getSimpleName();
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
 
     public Long getId() {
         return id;
