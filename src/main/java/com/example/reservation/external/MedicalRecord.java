@@ -3,6 +3,10 @@ package com.example.reservation.external;
 public class MedicalRecord {
 
     private Long id;
+    Long reservationId;
+
+
+
     String doctor;
     String treatment;
     String medicalOpinion;
@@ -13,6 +17,14 @@ public class MedicalRecord {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
     }
 
     public String getDoctor() {

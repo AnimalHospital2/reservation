@@ -31,8 +31,8 @@ public class Reservation {
 //
         MedicalRecord medicalRecord = new MedicalRecord();
 
+        medicalRecord.setReservationId(this.getId());
         medicalRecord.setDoctor("Brad pitt");
-        medicalRecord.setId(this.getId());
         medicalRecord.setMedicalOpinion("별 이상 없습니다.");
         medicalRecord.setTreatment("그냥 집에서 푹 쉬면 나을 것입니다.");
 
