@@ -28,7 +28,7 @@ public class Reservation {
 
     @PostPersist
     public void publishReservationReservedEvent() {
-//
+
         MedicalRecord medicalRecord = new MedicalRecord();
 
         medicalRecord.setReservationId(this.getId());
